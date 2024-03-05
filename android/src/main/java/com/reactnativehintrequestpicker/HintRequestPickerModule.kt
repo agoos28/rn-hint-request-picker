@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.util.Log
+import com.facebook.react.bridge.*
 import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter
 import com.google.android.gms.auth.api.identity.Identity
 import javax.annotation.Nullable
