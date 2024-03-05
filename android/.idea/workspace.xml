@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="bd85016d-dd1b-4410-be82-125ba88ec1c2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/reactnativehintrequestpicker/HintRequestPickerModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/reactnativehintrequestpicker/HintRequestPickerModule.kt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Enum" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1mxsJDrFqCrkk4S8TC9oMMN1AW0" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="memory.settings.postsync.last.time.stamp" value="1610446649647" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bd85016d-dd1b-4410-be82-125ba88ec1c2" name="Default Changelist" comment="" />
+      <created>1610446502474</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1610446502474</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="493" y="155" width="424" height="491" key="FileChooserDialogImpl" timestamp="1610535014921">
+      <screen x="54" y="27" width="1312" height="741" />
+    </state>
+    <state x="493" y="155" width="424" height="491" key="FileChooserDialogImpl/54.27.1312.741@54.27.1312.741" timestamp="1610535014921" />
+    <state x="374" y="174" key="run.anything.popup" timestamp="1610534900327">
+      <screen x="54" y="27" width="1312" height="741" />
+    </state>
+    <state x="374" y="174" key="run.anything.popup/54.27.1312.741@54.27.1312.741" timestamp="1610534900327" />
+  </component>
+</project>
