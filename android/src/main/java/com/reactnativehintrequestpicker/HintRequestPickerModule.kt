@@ -2,11 +2,17 @@ package com.reactnativehintrequestpicker
 
 import android.app.Activity
 import android.app.Activity.RESULT_OK
+import android.app.PendingIntent
 import android.content.Intent
+import android.content.IntentSender
+import android.os.Bundle
 import android.util.Log
+import androidx.core.app.ActivityCompat
 import com.facebook.react.bridge.*
 import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter
+import com.google.android.gms.auth.api.identity.GetPhoneNumberHintIntentRequest
 import com.google.android.gms.auth.api.identity.Identity
+import java.util.Objects
 import javax.annotation.Nullable
 
 
@@ -25,7 +31,18 @@ class HintRequestPickerModule(private val reactContext: ReactApplicationContext)
     // See https://reactnative.dev/docs/native-modules-android
     @ReactMethod
     fun getPhoneNumber() {
-        hintPicker.getPhoneNumber();
+        val request: GetPhoneNumberHintIntentRequest = GetPhoneNumberHintIntentRequest.builder().build()
+        Identity.getSignInClient(reactContext.baseContext).getPhoneNumberHintIntent(request).addOnSuccessListener {
+            result: PendingIntent ->
+            try {
+                reactContext.currentActivity?.let { ActivityCompat.startIntentSenderForResult(it, result.intentSender, Constants.PHONE_PICKER_REQUEST, null, 0, 0, 0, Bundle()) }
+            } catch (e: IntentSender.SendIntentException) {
+                e.printStackTrace()
+            }
+        }.addOnFailureListener {
+            error: Exception ->
+            sendErrorEvent(Constants.PHONE_SELECTED_EVENT, error.toString())
+        }
     }
 
     @ReactMethod
@@ -34,54 +51,58 @@ class HintRequestPickerModule(private val reactContext: ReactApplicationContext)
         hintPicker.getGoogleAccount(clientId);
     }
 
-    private fun sendEvent(eventName: String,
-                          @Nullable params: WritableMap) {
+    private fun sendEvent(eventName: String, params: WritableMap ) {
         reactContext
                 .getJSModule(RCTDeviceEventEmitter::class.java) //supply the result in params
                 .emit(eventName, params)
     }
 
+    private fun sendErrorEvent(eventName: String, errorMsg: String) {
+        val params = Arguments.createMap()
+        params.putString("error", errorMsg)
+        sendEvent(eventName, params)
+    }
+
     override fun onActivityResult(activity: Activity?, requestCode: Int, resultCode: Int, data: Intent?) {
-        if(data == null){
-            return;
-        }
         if (requestCode == Constants.PHONE_PICKER_REQUEST) {
-            val map = Arguments.createMap()
-            if (resultCode == RESULT_OK) {
-                if(activity != null) {
-                    val phoneNumber = Identity.getSignInClient(activity).getPhoneNumberFromIntent(data)
-                    map.putString("phoneNumber", phoneNumber);
+            val params = Arguments.createMap()
+            if (activity != null && data != null && resultCode == RESULT_OK) {
+                val phoneNumber = Identity.getSignInClient(activity).getPhoneNumberFromIntent(data)
+                if (phoneNumber.isNotEmpty()) {
+                    params.putString("phoneNumber", phoneNumber)
+                } else {
+                    params.putString("error", "Null intent data");
                 }
             } else {
-                map.putString("phoneNumber", null);
+                params.putString("error", "Null intent data");
             }
-            sendEvent(Constants.PHONE_SELECTED_EVENT, map)
+            sendEvent(Constants.PHONE_SELECTED_EVENT, params)
         }
-        else if (requestCode == Constants.EMAIL_PICKER_REQUEST) {
-            val map = Arguments.createMap()
-//      if (resultCode == RESULT_OK) {
+        if (requestCode == Constants.EMAIL_PICKER_REQUEST) {
+            val params = Arguments.createMap()
+//      if (data !== null && resultCode == RESULT_OK) {
 //        val credential: Credential? = data.getParcelableExtra(Credential.EXTRA_KEY)
 //          if (credential !== null) {
 //              val token = credential.idTokens;
 //
 //              if (token.size > 0) {
-//                  map.putString("tokenId", token.first().idToken);
+//                  params.putString("tokenId", token.first().idToken);
 //              }
 //
-//              map.putString("givenName", credential.givenName);
-//              map.putString("name", credential.name);
-//              map.putString("id", credential.id);
-//              map.putString("email", credential.id);
-//              map.putString("familyName", credential.familyName);
-//              map.putString("profilePictureUri", credential.profilePictureUri.toString());
-//              map.putString("accountType", credential.accountType);
+//              params.putString("givenName", credential.givenName);
+//              params.putString("name", credential.name);
+//              params.putString("id", credential.id);
+//              params.putString("email", credential.id);
+//              params.putString("familyName", credential.familyName);
+//              params.putString("profilePictureUri", credential.profilePictureUri.toString());
+//              params.putString("accountType", credential.accountType);
 //          }
 //      }
 //      else {
-//        map.putString("email", null);
-//        map.putString("id", null);
+//        params.putString("email", null);
+//        params.putString("id", null);
 //      }
-            sendEvent(Constants.EMAIL_SELECTED_EVENT, map)
+            sendEvent(Constants.EMAIL_SELECTED_EVENT, params)
         }
     }
 
